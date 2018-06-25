@@ -8,6 +8,7 @@
 */
 
 #include "WiFiEsp.h"
+#include "WiFiEspSecureClient.h"
 
 // Emulate Serial1 on pins 6/7 if not present
 #ifndef HAVE_HWSERIAL1
@@ -22,7 +23,7 @@ int status = WL_IDLE_STATUS;     // the Wifi radio's status
 char server[] = "www.google.com";
 
 // Initialize the Ethernet client object
-WiFiEspClient client;
+WiFiEspSecureClient client;
 
 void setup()
 {
@@ -56,7 +57,7 @@ void setup()
   Serial.println();
   Serial.println("Starting connection to server...");
   // if you get a connection, report back via serial
-  if (client.connectSSL(server, 443)) {
+  if (client.connect(server, 443)) {
     Serial.println("Connected to server");
     // Make a HTTP request
     client.println("GET / HTTP/1.1");
